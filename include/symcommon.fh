@@ -1,0 +1,4 @@
+      common /symcommon/ict(100000,120),trans(9,120),ntrans
+      integer ndi14,ntrans,ict
+      real*8 trans
+      parameter (ndi14=120)

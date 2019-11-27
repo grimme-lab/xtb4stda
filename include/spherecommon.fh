@@ -1,0 +1,3 @@
+      common /spherecommon/boxr,rabco(3),rabci(3),sphere,nabci
+      real*8 boxr,rabco,rabci
+      integer sphere,nabci

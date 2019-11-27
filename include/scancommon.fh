@@ -1,0 +1,5 @@
+      common /scancommon/ 
+     . valconstr(100000),valscan(100),atconstr(4,100000),
+     . fcconstr,pmf,nscan,nconstr,iconstr,zconstr
+      real*8 valscan,valconstr,fcconstr,pmf
+      integer nscan,nconstr,atconstr,iconstr,zconstr

@@ -1,0 +1,13 @@
+      integer maxfix
+      parameter (maxfix=10000)
+      common /fixcommon/
+     .        fixed(maxfix),rf((maxfix)*((maxfix)+1)/2),fixfc,springexpo
+     .       ,natomsf
+     .       ,zlist(maxfix)
+      integer natomsf,fixed,zlist
+      real*8 rf,fixfc,springexpo
+
+      common /metadyncommon/ metadyn_xyz(3,maxfix,100), metadyn_k(100),
+     .                       metadyn_n
+      real*8  metadyn_xyz, metadyn_k 
+      integer metadyn_n      

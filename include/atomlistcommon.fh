@@ -1,0 +1,2 @@
+      common /atomlistcommon/ atlist(10000),natlist
+      integer natlist,atlist 

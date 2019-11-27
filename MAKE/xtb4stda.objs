@@ -1,0 +1,110 @@
+#!/bin/env make
+# 
+# created by Sebastian Ehlert in March 2018 (v 2.1)
+# 2.0: recreated from scratch
+# 2.1: refined the generation of dependencies, since it crashed if not
+#      done in the main directory
+#
+##############################################################################
+## put all you sources here                                                 ##
+##############################################################################
+# the program you want to have, eventually
+NAME := xtb4stda
+
+###------------------------------------------------------------------------###
+# the source holding your main-program should go in OBJSP
+# The numbering is arbitrary, but it is garanteed that
+# OBJS3 is always build before OBJS2 and so on.
+OBJSP := main.o
+OBJS0 := 
+OBJS1 := 
+OBJS2 := asym.o\
+         atovlp.o\
+         axis2.o\
+         axis3.o\
+         axis.o\
+         blckmgs.o\
+         blowsy.o\
+         cm5.o\
+         copyc6.o\
+         dftd3.o\
+         dipole.o\
+         drsp.o\
+         dtrafo2.o\
+         dtrafo.o\
+         elem.o\
+         fermi.o\
+         foden.o\
+         fragment.o\
+         gauss.o\
+         gover.o\
+         iniq.o\
+         intpack.o\
+         lin.o\
+         local.o\
+         lopt.o\
+         makel.o\
+         matinv.o\
+         molbld.o\
+         ncoord.o\
+         ncoord2.o\
+         neighbor.o\
+         onetri.o\
+         out.o\
+         pop.o\
+         pqn.o\
+         printbas.o\
+         printmold.o\
+         printmos.o\
+         prmat.o\
+         qsort.o\
+         rdcoord2.o\
+         readl2.o\
+         readl.o\
+         readparam.o\
+         setmetal.o\
+         setwll.o\
+         shifteps.o\
+         shiftlp.o\
+         spline2.o\
+         spline.o\
+         splitmol.o\
+         symtranslib.o\
+         timing.o\
+         uxtb.o\
+         warn.o\
+         wrc0.o\
+         wrcoord.o\
+         wren.o\
+         wrxyz.o\
+         xbasis.o\
+         xtb.o\
+         zmatpr.o
+# to be save, put your modules here
+OBJS3 := gbobc.o
+
+# put all include files here (currently not used)
+INC  := aoelementcommon.f\
+        atmass.f\
+        d3common.f\
+        d4_alphacommon.f\
+        d4common.f\
+        ehtcommon.f\
+        fixcommon.f\
+        incmd.f\
+        param_ref.f\
+        pars.f\
+        scancommon.f\
+        setcommon.f\
+        spherecommon.f\
+        splitcommon.f\
+        stuff.f\
+        symcommon.f
+
+# libraries, do not put the program name itself here
+LIBS := mkl_blas95_lp64\
+        mkl_lapack95_lp64\
+        pthread\
+        m
+
+

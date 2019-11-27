@@ -1,0 +1,4 @@
+      common /splitcommon/ splitlist(10000),iatf1,iatf2,
+     .                     rcma,massf1,massf2,atmass(10000)
+      integer splitlist,iatf1,iatf2
+      real*8 rcma,massf1,massf2,atmass

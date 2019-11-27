@@ -1,0 +1,8 @@
+      integer maxao
+      parameter (maxao=50000)
+      common /ehtcommon/lao(maxao),nprim(maxao),aoat(maxao),
+     .        fila(2,maxao/5),alp(maxao*5),cont(maxao*5),hdiag(maxao),
+     .        lao2(maxao),aoat2(maxao),fila2(2,maxao/5),valao(maxao),
+     .        valao2(maxao),hdiag2(maxao)
+      integer lao,nprim,aoat,fila,lao2,aoat2,fila2,valao,valao2
+      real*8 alp,cont,hdiag,hdiag2

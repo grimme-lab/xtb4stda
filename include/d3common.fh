@@ -1,0 +1,6 @@
+! d3 common variable block                               
+      common / d3common /rcov(94),r2r4(94),c6ab(94,94,5,5,3),mxc(94)
+      real*8  rcov
+      real*8  r2r4
+      real*8  c6ab
+      integer mxc

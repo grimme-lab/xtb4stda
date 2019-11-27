@@ -1,0 +1,68 @@
+$set
+gfnver        3       # GFN Hamiltonian version (1=JCTC 2017 version with monopole ES, 3=multipole ES version)
+etemp       300       # electronic SCC temperature                
+optlev        0       # default optimization level (loose=-1,normal=0,tight=1,verytight=2)
+microopt     40       # number of opt. cycles before new ANC are made (25 normally)
+maxopt        0       # total number of opt. cycles, 0 means automatically determined)
+maxdispl    2.0       # maximum coordinate displacement in ancopt                               
+hlowopt   0.005       # lowest force constant in ANC generation (should be > 0.001), def 0.010
+s6opt     20.00       # dispersion scaling in ANC generation (normally 20)
+broydamp   0.50       # damping in Broyden SCC procedure (0.05 for critical cases, lowered automatically)
+thermo   298.15       # temp. for thermostatistical calc. (could be more than just one T, i.e., a list)
+mdtemp   298.15       # MD thermostat/initial siman/GBSA temperature
+mdtime     10.0       # MD run time in ps
+mddump    1000.       # dump (=optimize) structure in siman every mddump fs or add freq of Gaussian meta dyn potential (2000 is a good default)
+mddumpxyz  100.       # MD dump step in fs for xyz output file, MUST BE .eq. mdstep for power IR spectra, 20 is good for reactor runs
+velodump      0       # set to 1 if dumps (trj file) should contain velocities                            
+nvt           1       # use thermostat (=1, =0 for NVE)
+mdskip        5       # skip interval in -mdav, -mdopt 
+mdstep      4.0       # MD time step in fs (automatically determined if < 0), could be 4-5 fs with shake =2, md_hmass=4
+md_hmass      4       # increase hydrogen mass to this value in amu (at const. tot. mass) allowing large time steps (=0 off)
+shake         2       # shake on (=0: off which is default) for X-H bonds only (=1), or all bonds (=2), read by fix list (=3)
+nsiman        3       # number of siman annealing blocks
+ewin_conf  20.0       # energy window (kcal) for considering conformers
+tend       1000       # highest siman annealing temperature (very system specific)
+enan          0       # include enantiomers in siman (=1)
+sccmd       1.0       # SCC accuracy level in MD. Every 10th step the SCC is properly converged at sccconv=1.0. sccmd should be < 5 in critical cases
+                      # effects may show up as bad thermostating
+scchess    0.30       # SCC accuracy level in Hessian runs
+stephess  0.005       # Cartesian displacement increment for numerical Hessian
+thermo_sthr  50       # rotor cut-off (cm-1) in thermo  (was 100 cm-1 previously)
+fixfc     0.050       # fixing atoms force constant ( should be < 1)
+constrfc   1.00       # force constant for internal coordinate fixing, (0.001 for RCMA fixing), 0.01-0.05 seems to be ok
+springexp     2       # exponent of spring potential (r-r0)^springexpo in fixing atoms or bond lengths constrains (def=2)
+sphere       -1       # no spherical constraining pot. =0 means autoset, >0 is the radius of the sphere
+gbsa       none       # switch on gbsa for solvent if second argument is a valid solvent name        
+ion_st        0       # sum of the ion concentration in mol/l times the stoichiometric coefficient of the ion times the ion charge
+ion_rad       0       # corresponding ionic radius
+mode_n       31       # of points along normal mode path scan
+mode_step    1.0      # step lengths for scan (should be around 1 because its adjusted internally to mode mass and FC)
+mode_updat   0.2      # update search mode with a fraction of the displacement at every step (0.0 means no update, 0.1-0.2 is a good choice)
+mode_local   0        # use canonical normal modes (=0) or Pipek-Mezey localized ones (=1)
+mode_vthr    0.       # threshold up to which frequency modes are used for mode based conformer search (def. is 300)
+mode_prj      0       # number of second mode which should be projected out in mode following (normally = 7 ie the TS mode which is fixed then)
+path_dens     1.00    # cavity in reactor runs is shrinked at input coords until density is larger than this threshold
+path_nrun     3       # number of runs with different settings in -path
+path_nopt   100       # approx. no. of opt. (=points) on path or # of Vbias max in -reactor runs
+path_anopt    4       # max # of "an" opt steps in -path (2-4 is reasonable)
+path_kpush  0.01      # push (educt)   Gaussian prefactor  in -path and -reactor
+path_kpull -0.05      # pull (product) Gaussian prefactor  in -path
+path_alp    0.70      # Gaussian RSMD width
+wallexp       6.      # exponent of wall potential (was 10 in QCG)
+cube_step   .40       # grid spacing for cube file     
+cube_pthr 0.005       # density matrix neglect threshold
+cube_cal     -1       # =1 switches on cube-file output (=0 means writing molden file instead, -1=do nothing)
+desy        0.1       # point group symmetrization threshold 
+desymaxat     0       # point group determination skipped if # atoms > this value (i.e. desymaxat 0 switches it off)
+check_equal   1       # compare molecules in ensemble for removing doubles by RMSD (=0) or rot.const.(=1)
+ex_open_HS  0.3       # exchange correction scaling factor for HS case  0.3
+ex_open_LS -1.4       # exchange correction scaling factor for LS case -1.4
+stm_alp     1.0   
+stm_targ    0.00002
+stm_grid    0.5  
+stm_pot    -0.7 
+stm_thr     0.10      # cut-off (default should be 1, smaller makes it more precise)
+orca_mpi      4       # of procs in ORCA external run
+orca_exe /home/grimme/orca/orca
+orca_line b97-3c smallprint printgap noloewdin loosescf
+$end

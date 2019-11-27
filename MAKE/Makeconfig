@@ -1,0 +1,45 @@
+#!/bin/env make
+# 
+# created by Sebastian Ehlert in March 2018 (v 2.1)
+# 2.0: recreated from scratch
+# 2.1: refined the generation of dependencies, since it crashed if not
+#      done in the main directory
+#
+##############################################################################
+## here you can globally set some flags for your build system               ##
+##############################################################################
+
+###------------------------------------------------------------------------###
+# some options first
+BUILD_IN_BIN := no
+DEBUG_BUILD  := no
+
+# beware! this means if you modify this file everything gets updated
+# if you only edit this section, keeping this false might be a good idea
+MAKEFILE_DEP := no
+
+# use the dependency build, if so your source will be scanned for
+# include and use statements and the results are included in this Makefile
+#
+# the command make depend becomes available to generate the dependency files
+#
+# you need the depend.rb script und a copy of ruby for this job
+USE_DEPENDENCIES := yes
+# also make the dependency files Makefile dependent
+DEP_MAKEFILE_DEP := no
+
+# choose your compiler here (you can choose LINUXI)
+OSTYPE := LINUXI
+
+###------------------------------------------------------------------------###
+# put all files to appropiate places
+EXEDIR  := $(MAINDIR)/exe
+LIBDIR  := $(MAINDIR)/lib
+XTBDIR  := $(MAINDIR)/xtb
+INCDIR  := $(MAINDIR)/include
+MODDIR  := $(MAINDIR)/modules
+# you can use a local build directory to separate the build
+# from the main program
+OUTDIR  := $(MAINDIR)/build
+DEPDIR  := $(MAINDIR)/.depend
+

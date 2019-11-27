@@ -1,0 +1,6 @@
+      common /stuff/ eat, gtot, gsolv, hlgap, dip
+      real*8 eat     ! used for HOF calc (filled in scf.f, used in hof.f)
+      real*8 gtot    ! used for output Gtot in an sdf file, filled in hess.f and used in wrcoord.f
+      real*8 gsolv   ! used for output in an sdf file, filled in scf.f        "
+      real*8 hlgap   ! used for output in an sdf file, filled in scf.f        "
+      real*8 dip     ! used for output in an sdf file, filled in scf.f        "
