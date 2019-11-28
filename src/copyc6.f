@@ -1,3 +1,20 @@
+! This file is part of xtb4stda.
+!
+! Copyright (C) 2015-2019 Stefan Grimme
+!
+! xtb4stda is free software: you can redistribute it and/or modify it under
+! the terms of the GNU Lesser General Public License as published by
+! the Free Software Foundation, either version 3 of the License, or
+! (at your option) any later version.
+!
+! xtb4stda is distributed in the hope that it will be useful,
+! but WITHOUT ANY WARRANTY; without even the implied warranty of
+! MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+! GNU Lesser General Public License for more details.
+!
+! You should have received a copy of the GNU Lesser General Public License
+! along with xtb4stda.  If not, see <https://www.gnu.org/licenses/>.
+
 CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 c copy from machine generated data statements inside pars.f
 CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
@@ -8,57 +25,13 @@ CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 
       integer nlines
       integer iat,jat,iadr,jadr,nn,kk
-      include 'pars.fh'
 
 ! define r2r4 an rcov at this point
 
       call setr2r4(r2r4)
       call setrcov(rcov)
 
-      c6ab=-1
-      mxc=0
-c process all entries in pars.f
-      kk=1
-      do nn=1,nlines
-       iat=int(pars(kk+1))
-       jat=int(pars(kk+2))
-       call limit(iat,jat,iadr,jadr)
-       mxc(iat)=max(mxc(iat),iadr)
-       mxc(jat)=max(mxc(jat),jadr)
-
-       c6ab(iat,jat,iadr,jadr,1)=pars(kk)
-       c6ab(iat,jat,iadr,jadr,2)=pars(kk+3)
-       c6ab(iat,jat,iadr,jadr,3)=pars(kk+4)
-
-       c6ab(jat,iat,jadr,iadr,1)=pars(kk)
-       c6ab(jat,iat,jadr,iadr,2)=pars(kk+4)
-       c6ab(jat,iat,jadr,iadr,3)=pars(kk+3)
-       kk=(nn*5)+1
-      enddo
-
       end subroutine copyc6
-
-
-      subroutine limit(iat,jat,iadr,jadr)
-      implicit none
-      integer iat,jat,iadr,jadr,i
-      iadr=1
-      jadr=1
-      i=100
- 10   if(iat.gt.100) then
-         iat=iat-100
-         iadr=iadr+1
-         goto 10
-      endif
-
-      i=100
- 20   if(jat.gt.100) then
-         jat=jat-100
-         jadr=jadr+1
-         goto 20
-      endif
-
-      end subroutine limit
 
       subroutine setrcov(rcov)
       real*8 rcov(94)

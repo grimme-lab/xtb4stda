@@ -49,7 +49,7 @@ decent Fortran support.
 For the default backend [`ninja`](https://ninja-build.org/) version 1.5 or newer
 has to be provided.
 
-To perform a build run (with GCC, run `export FC=ifort CC=icc` for Intel builds)
+To perform a build run (with GCC, run `export FC=ifort` for Intel builds)
 
 ```bash
 meson setup build_gcc
@@ -60,6 +60,14 @@ This also allows to install the program locally by running
 
 ```bash
 [sudo] ninja -C build_gcc install
+```
+
+Which will default to an installation in `/usr/local` and should automatically
+include `xtb4stda` in your systems `PATH` variable.
+The environment variable to set is than usually only
+
+```bash
+export XTB4STDAHOME=/usr/local/share/xtb4stda
 ```
 
 ## Usage

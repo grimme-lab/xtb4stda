@@ -134,15 +134,6 @@ $(PROGNAME): $(LIBNAME) $(OBJSP)
 %.o : %.mod
 %.f : %.F
 
-# a little hack for copyc6... ;)
-$(OUTDIR)/copyc6.o:
-	@echo "not making $@, but copying it!" && \
-	cp $(OUTDIR)/copyc6.ifort $@
-
-$(OUTDIR)/copyc6erf.o:
-	@echo "not making $@, but copying it!" && \
-	cp $(OUTDIR)/copyc6erf.ifort $@
-
 # now the rules to actually build the object files
 $(OUTDIR)/%.o: %.f $(MAKEDEP)
 	@echo "making $@ from $<" && \
