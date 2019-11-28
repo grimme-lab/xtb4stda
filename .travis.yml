@@ -1,9 +1,9 @@
-sudo: false
 os: linux
 dist: bionic
 
 language: python
-python: 3.7
+python:
+- 3.7
 
 addons:
   apt:
@@ -19,7 +19,7 @@ addons:
      - lapack
      - ninja
 
-matrix:
+jobs:
   include:
   - os: osx
     env: FC=gfortran

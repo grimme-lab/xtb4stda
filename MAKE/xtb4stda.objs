@@ -24,6 +24,7 @@ OBJS2 := asym.o\
          axis3.o\
          axis.o\
          blckmgs.o\
+         block.o\
          blowsy.o\
          cm5.o\
          copyc6.o\
