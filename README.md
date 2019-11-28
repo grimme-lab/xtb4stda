@@ -1,6 +1,7 @@
 # sTDA-xTB for ground state calculations
 
 [![Build Status](https://travis-ci.com/grimme-lab/xtb4stda.svg?branch=master)](https://travis-ci.com/grimme-lab/xtb4stda)
+[![Build Status](https://github.com/grimme-lab/xtb4stda/workflows/CI/badge.svg)](https://github.com/grimme-lab/xtb4stda/actions)
 
 This project provides `xtb4stda`, a program to calculate the ground state with
 sTDA-xTB to be used in further [`stda`](https://github.com/grimme-lab/stda)
