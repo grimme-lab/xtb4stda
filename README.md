@@ -128,3 +128,15 @@ answer at least these questions:
 5. What did you see instead?
 
 All these details will help people to fix any potential bugs.
+
+### Known Issues
+
+For large systems with more than 33000 basis functions an integer overflow
+in the linear algebra backend will occur. To amend this issue the integer
+precision range must be increased from 32 bits to 64 bits by recompiling
+the program.
+Adjust the make build by changing `-lmkl_intel_lp64` to `-lmkl_intel_il64`
+in [`MAKE/Makerules`](https://github.com/grimme-lab/xtb4stda/blob/master/MAKE/Makerules)
+or when using the `meson` backend by adding `-Dinterface=64` in the
+configuration step.
+Note that this option is currently only supported with the MKL backend.
