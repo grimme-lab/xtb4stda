@@ -1,6 +1,6 @@
 # This file is part of xtb4stda.
 #
-# Copyright (C) 2019 Sebastian Ehlert
+# Copyright (C) 2019-2020 Sebastian Ehlert
 #
 # xtb4stda is free software: you can redistribute it and/or modify it under
 # the terms of the GNU Lesser General Public License as published by
@@ -22,3 +22,5 @@ option('custom_libraries', type: 'array', value: [],
        description: 'libraries to load for custom linear algebra backend')
 option('openmp', type: 'boolean', value: true,
        description: 'use OpenMP parallelisation')
+option('interface', type: 'combo', value: '32', choices: ['32', '64'],
+       description: 'integer precision range in bits.')

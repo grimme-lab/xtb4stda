@@ -1,6 +1,6 @@
 # This file is part of xtb4stda.
 #
-# Copyright (C) 2019 Sebastian Ehlert
+# Copyright (C) 2019-2020 Sebastian Ehlert
 #
 # xtb4stda is free software: you can redistribute it and/or modify it under
 # the terms of the GNU Lesser General Public License as published by
@@ -20,15 +20,25 @@ project('xtb4stda', 'fortran',
         license: 'LGPL3',
         meson_version: '>=0.49')
 
+if get_option('interface') == '64' and get_option('la_backend') != 'mkl'
+  error('64 bit integer interface only supported for MKL backend')
+endif
+
 fc = meson.get_compiler('fortran')
 
 if fc.get_id() == 'gcc'
   add_project_arguments('-ffree-line-length-none', language: 'fortran')
   add_project_arguments('-fbacktrace', language: 'fortran')
+  if get_option('interface') == '64'
+    add_project_arguments('-fdefault-integer-8', language: 'fortran')
+  endif
 elif fc.get_id() == 'intel'
   add_project_arguments('-axAVX2',    language: 'fortran')
   add_project_arguments('-traceback', language: 'fortran')
   add_project_link_arguments('-static', language: 'fortran')
+  if get_option('interface') == '64'
+    add_project_arguments('-i8', language: 'fortran')
+  endif
 endif
 
 dependencies = []
@@ -39,10 +49,18 @@ if la_backend == 'mkl'
   libmkl += fc.find_library('m')
   libmkl += fc.find_library('dl')
   if fc.get_id() == 'intel'
-    libmkl += [fc.find_library('mkl_intel_lp64')]
+    if get_option('interface') == '64'
+      libmkl += fc.find_library('mkl_intel_ilp64')
+    else
+      libmkl += fc.find_library('mkl_intel_lp64')
+    endif
     libmkl += fc.find_library('mkl_intel_thread')
   else
-    libmkl += [fc.find_library('mkl_gf_lp64')]
+    if get_option('interface') == '64'
+      libmkl += fc.find_library('mkl_gf_ilp64')
+    else
+      libmkl += fc.find_library('mkl_gf_lp64')
+    endif
     libmkl += fc.find_library('mkl_gnu_thread')
   endif
   libmkl += fc.find_library('mkl_core')
