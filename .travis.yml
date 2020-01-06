@@ -1,29 +1,61 @@
-os: linux
-dist: bionic
-
 language: python
-python: 3.7
+python:
+  - 3.7
 
-addons:
-  apt:
-     packages:
-     - gfortran
-     - libblas-dev
-     - liblapack-dev
-     - ninja-build
-  homebrew:
-     update: true
-     packages:
-     - gcc
-     - lapack
-     - ninja
-
+# Build matrix: Run different versions of GCC and tests in parallel
 jobs:
   include:
-  - os: linux
-  - os: osx
-    env: FC=gfortran
-    language: minimal
+    - os: linux
+      dist: bionic
+      addons:
+        apt:
+          packages:
+            - libblas-dev
+            - liblapack-dev
+            - ninja-build
+            - gfortran-5
+            - python-pip
+      env:
+        - FC=gfortran-5
+
+    - os: linux
+      dist: bionic
+      addons:
+        apt:
+          packages:
+            - libblas-dev
+            - liblapack-dev
+            - ninja-build
+            - gfortran-6
+            - python-pip
+      env:
+        - FC=gfortran-6
+
+    - os: linux
+      dist: bionic
+      addons:
+        apt:
+          packages:
+            - libblas-dev
+            - liblapack-dev
+            - ninja-build
+            - gfortran-7
+            - python-pip
+      env:
+        - FC=gfortran-7
+
+    - os: linux
+      dist: bionic
+      addons:
+        apt:
+          packages:
+            - libblas-dev
+            - liblapack-dev
+            - ninja-build
+            - gfortran-8
+            - python-pip
+      env:
+        - FC=gfortran-8
 
 install:
   - pip3 install meson
