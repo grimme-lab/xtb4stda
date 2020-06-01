@@ -191,7 +191,7 @@ c     Gshift (gsolv=reference vs. gsolv)
       real*8 :: gamma_in, rvdwscal, tmp(94), gstate, dum, temp
       character*80 fname
       logical ex
-      character*80 a80
+      character*200 a200
 
 c     D3 cut-off radii
       rvdw(1:94)= (/
@@ -227,8 +227,8 @@ c     hydrogen bonding parameters
       rvdwscal=1.0d0
 
       write(fname,'(''.param_gbsa_'',a)')trim(sname)
-      a80=trim(XTB4STDAHOME) // trim(fname)
-      fname=a80
+      a200=trim(XTB4STDAHOME) // trim(fname)
+      fname=a200
       write(*,*) 'Solvent             : ', trim(sname)
       write(*,*) 'GBSA parameter file : ', trim(fname)
 
@@ -255,15 +255,15 @@ c               RT*(ln(ideal gas mol volume)+ln(rho/M))
      .       log(1000.0d0*rhos/smass))
          gshift=(gshift+gstate)/autokcal
          write(*,*) 'Gsolv state corr. (kcal):',gstate
-         a80='gsolv=reference [X=1]'
+         a200='gsolv=reference [X=1]'
       elseif(mode.eq.0)then !gsolv option in COSMOTHERM to which it was fitted
          gshift=gshift/autokcal
-         a80='gsolv [1 M gas/solution]'
+         a200='gsolv [1 M gas/solution]'
       elseif(mode.eq.2)then ! 1 bar gas/ 1 M solution is not implemented in COSMOTHERM although its the canonical choice
          gstate=(temp*8.31451/1000./4.184)*log(24.79d0*temp/298.15)
          gshift=(gshift+gstate)/autokcal
          write(*,*) 'Gsolv state corr. (kcal):',gstate
-         a80='gsolv [1 bar gas/ 1 M solution]'
+         a200='gsolv [1 bar gas/ 1 M solution]'
       endif
 
       do i=1,94
@@ -307,7 +307,7 @@ c      inverse Debye screening length
       endif
 
 c     print parameters
-      write(*,*) 'Gsolv ref. state (COSMO-RS): ',trim(a80)
+      write(*,*) 'Gsolv ref. state (COSMO-RS): ',trim(a200)
       write(*,*) 'temperature (mdtemp)       : ',temp
       write(*,*) 'dielectric constant        : ',epsv
       write(*,*) 'rho                        : ',rhos

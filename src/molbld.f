@@ -177,7 +177,7 @@ c     endif
       include 'spherecommon.fh'
       include 'atomlistcommon.fh'
 
-      character*128 line
+      character*200 line
       character*80  str
       character*2  asym
       real*8 xx(100),minmass,pi,phi,valijkl,ex_open_HS,ex_open_LS,rij(3)

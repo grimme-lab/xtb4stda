@@ -52,7 +52,7 @@ ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 
       subroutine rdelparam(ini,fname,globpar,gfnver)
       implicit none
-      character*80 fname
+      character*200 fname
       real*8 globpar(25)
       integer ini,gfnver
       include 'aoelementcommon.fh'
