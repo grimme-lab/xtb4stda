@@ -29,7 +29,7 @@
       logical rdset,enan_siman,honly,nvt_md,restart_md,fit,lmo,tsopt,
      .        shake_md,moldfile,mdrtrconstr,check_rmsd,velodump,samerand
       character*80 inputname
-      character*80 xtb4stdahome   
+      character*150 xtb4stdahome   
       character*20 solvent
       character*4  pgroup 
       character*80 orcaexe,orcaline,molnameline,commentline

@@ -42,7 +42,8 @@ c     include 'interface.f'
       integer,allocatable :: at(:)
       integer,allocatable :: frozh(:)
       real*8 xx(10),globpar(25)
-      character*80 fname,fnv,arg(20),fnx
+      character*80 fname,arg(20)
+      character*200 fnv,fnx
       character*128 atmp
       character*2 asym
 
