@@ -35,7 +35,9 @@ if fc.get_id() == 'gcc'
 elif fc.get_id() == 'intel'
   add_project_arguments('-axAVX2',    language: 'fortran')
   add_project_arguments('-traceback', language: 'fortran')
-  add_project_link_arguments('-static', language: 'fortran')
+  if get_option('static')
+    add_project_link_arguments('-static', language: 'fortran')
+  endif
   if get_option('interface') == '64'
     add_project_arguments('-i8', language: 'fortran')
   endif
