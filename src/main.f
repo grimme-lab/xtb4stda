@@ -530,7 +530,7 @@ c       call docm5(n,at,.false.,xyz,chir,q)
 
       call printbas(n,at)
       call xbasis (n,at,nbf,xyz,q,cn,
-     .             zqf,zcnf,split,okbas,diff,runtyp)
+     .             zqf,zcnf,split,okbas,diff,runtyp,gfnver)
       if(.not.okbas) stop 'TB basis incomplete'
 
       if(nopen.eq.0)then
