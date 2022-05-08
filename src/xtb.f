@@ -448,7 +448,11 @@ c       Mulliken pop
 c       fitting stuff for charge TB
         if(ex)then
 c        fitting stuff
+#if defined(_WIN32) || defined(_WIN64)
+         call execute_command_line('cd>tmpxtb2')
+#else
          call execute_command_line('pwd > tmpxtb2')
+#endif
          open(unit=43,file='tmpxtb2')
          read(43,'(a)') ftmp
          close(43,status='delete')
