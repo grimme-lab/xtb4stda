@@ -527,7 +527,11 @@ c       fitting stuff for charge TB
             goto 130
          endif
          call docm5(n,at,.false.,xyz,chir,cm5_true)
+#if defined(_WIN32) || defined (_WIN64)
+         call execute_command_line('cd>tmpxtb2')
+#else
          call execute_command_line('pwd > tmpxtb2')
+#endif
          open(unit=43,file='tmpxtb2')
          read(43,'(a)') ftmp
          close(43,status='delete')
