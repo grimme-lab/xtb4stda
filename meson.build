@@ -42,7 +42,7 @@ elif fc.get_id() == 'intel'
     add_project_arguments('-i8', language: 'fortran')
   endif
 elif fc.get_id() == 'intel-cl' # Windows with Intel Fortran
-  add_project_arguments('-QaxAVX2',    language: 'fortran')
+  add_project_arguments('-QaxCORE-AVX2',    language: 'fortran')
   add_project_arguments('-traceback', language: 'fortran')
   if get_option('static')
     add_project_arguments('-MT', language: 'fortran') # link to static Fortran library
