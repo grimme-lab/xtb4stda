@@ -36,7 +36,9 @@ if fc.get_id() == 'gcc'
 elif fc.get_id() == 'intel'
   add_project_arguments('-axAVX2',    language: 'fortran')
   add_project_arguments('-fpp',    language: 'fortran')
-  add_project_arguments('-traceback', language: 'fortran')
+  if get_option('buildtype') == 'debug'
+    add_project_arguments('-traceback', language: 'fortran')
+  endif
   if get_option('static')
     add_project_link_arguments('-static', language: 'fortran')
   endif
@@ -46,7 +48,9 @@ elif fc.get_id() == 'intel'
 elif fc.get_id() == 'intel-cl' # Windows with Intel Fortran
   add_project_arguments('-QaxCORE-AVX2',    language: 'fortran')
   add_project_arguments('-fpp',    language: 'fortran')
-  add_project_arguments('-traceback', language: 'fortran')
+  if get_option('buildtype') == 'debug'
+    add_project_arguments('-traceback', language: 'fortran')
+  endif
   if get_option('static')
     add_project_arguments('-MT', language: 'fortran') # link to static Fortran library
   endif
