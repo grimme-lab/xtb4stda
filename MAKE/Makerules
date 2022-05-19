@@ -32,7 +32,7 @@ FC := ifort
 CC := icc
 
 # compile flags
-FCFLAGS := -O -axAVX -qopenmp -r8
+FCFLAGS := -O -axAVX -qopenmp -fpp -r8
 FCFLAGS += -module $(MODDIR)
 FCFLAGS += -I$(INCDIR)                       \
            -I$(MKLROOT)/include/intel64/lp64 \
