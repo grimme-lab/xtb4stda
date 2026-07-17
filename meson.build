@@ -79,9 +79,9 @@ if la_backend == 'mkl'
     libmkl += fc.find_library('mkl_intel_thread')
   else
     if get_option('interface') == '64'
-      libmkl += fc.find_library('mkl_gf_ilp64')
+      libmkl += fc.find_library('mkl_intel_ilp64')
     else
-      libmkl += fc.find_library('mkl_gf_lp64')
+      libmkl += fc.find_library('mkl_intel_lp64')
     endif
     libmkl += fc.find_library('mkl_gnu_thread')
   endif
