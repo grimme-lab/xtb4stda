@@ -33,7 +33,7 @@ if fc.get_id() == 'gcc'
   if get_option('interface') == '64'
     add_project_arguments('-fdefault-integer-8', language: 'fortran')
   endif
-elif fc.get_id() == 'intel'
+elif fc.get_id() == 'intel' or fc.get_id() == 'intel-llvm'
   add_project_arguments('-axAVX2',    language: 'fortran')
   add_project_arguments('-fpp',    language: 'fortran')
   if get_option('buildtype') == 'debug'

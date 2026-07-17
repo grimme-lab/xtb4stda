@@ -12,7 +12,7 @@ calculations.
 Statically linked binaries can be found at the projects
 [release page](https://github.com/grimme-lab/xtb4stda/releases/latest).
 To build from source this project uses a `make` based build system and requires
-a version of Intel Parallel Studio 17 or newer to be compiled (also requires
+a version of the newest intel Fortran compiler, `ifx`, to be compiled (also requires
 `ruby` for some hacky scripts).
 To trigger the build run in the root directory
 
@@ -25,7 +25,7 @@ To make `xtb4stda` accessible export
 
 ```bash
 export XTB4STDAHOME=$PWD
-export PATH=$PATH:XTB4STDAHOME/exe
+export PATH=$PATH:$XTB4STDAHOME/exe
 ```
 
 For parallel usage set the threads for OMP and the MKL linear algebra backend by
@@ -52,17 +52,33 @@ decent Fortran support.
 For the default backend [`ninja`](https://ninja-build.org/) version 1.5 or newer
 has to be provided.
 
-To perform a build run (with GCC, run `export FC=ifort` for Intel builds)
+To setup a build run (with GCC, run `export FC=ifx` for Intel builds)
 
 ```bash
-meson setup build_gcc
-ninja -C build_gcc
+meson setup _build
+meson compile -C _build
 ```
 
-This also allows to install the program locally by running
+For 64 bit integers (`ILP64`), for larger calculations, use instead
+
+Then, you can compile it with:
 
 ```bash
-[sudo] ninja -C build_gcc install
+meson compile -C _build -Dinterface=64
+```
+
+The program is then available in `_build/xtb4stda`.
+To make `xtb4stda` accessible export
+
+```bash
+export XTB4STDAHOME=$PWD
+export PATH=$PATH:$XTB4STDAHOME/_build
+```
+
+Alternatively, you can also "install" the program locally by running:
+
+```bash
+[sudo] meson install -C _build
 ```
 
 Which will default to an installation in `/usr/local` and should automatically

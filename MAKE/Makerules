@@ -28,7 +28,7 @@ vpath % $(SRCDIR):$(XTBDIR)
 ###------------------------------------------------------------------------###
 # to use the Intel-Compiler please set MKLROOT somewhere
 ifeq ($(OSTYPE),LINUXI)
-FC := ifort
+FC := ifx
 CC := icc
 
 # compile flags
@@ -46,7 +46,7 @@ CCFLAGS += -g -DEBUG
 endif # DEBUG
 
 # linker
-FL := ifort
+FL := ifx
 # general flags for linking, this is build incremental to get an overview
 FLFLAGS := -static -fopenmp
 # add path to libraries
