@@ -33,7 +33,7 @@ if fc.get_id() == 'gcc'
   if get_option('interface') == '64'
     add_project_arguments('-fdefault-integer-8', language: 'fortran')
   endif
-elif fc.get_id() == 'intel'
+elif fc.get_id() == 'intel' or fc.get_id() == 'intel-llvm'
   add_project_arguments('-axAVX2',    language: 'fortran')
   add_project_arguments('-fpp',    language: 'fortran')
   if get_option('buildtype') == 'debug'
@@ -79,9 +79,9 @@ if la_backend == 'mkl'
     libmkl += fc.find_library('mkl_intel_thread')
   else
     if get_option('interface') == '64'
-      libmkl += fc.find_library('mkl_gf_ilp64')
+      libmkl += fc.find_library('mkl_intel_ilp64')
     else
-      libmkl += fc.find_library('mkl_gf_lp64')
+      libmkl += fc.find_library('mkl_intel_lp64')
     endif
     libmkl += fc.find_library('mkl_gnu_thread')
   endif

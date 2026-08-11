@@ -1,26 +1,124 @@
-name: CI
+name: Test build (Meson & Make)
+
+env:
+  BUILD_DIR: _build
+
 on: [push, pull_request]
 
 jobs:
-  linux-build:
+  test-meson-gcc-openblas:
     runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v1
-    - uses: actions/setup-python@v1
-      with:
-        python-version: '3.x'
-    - run: sudo apt install -yq --no-install-recommends gfortran ninja-build liblapack-dev libblas-dev
-    - run: pip3 install meson
-    - run: meson setup build_gcc --buildtype release -Dla_backend=netlib
-    - run: ninja -C build_gcc
+    strategy:
+      fail-fast: false
+    env:
+      CC: gcc
+      FC: gfortran
 
-  osx-build:
-    runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v1
-    - uses: actions/setup-python@v1
-      with:
-        python-version: '3.x'
-    - run: brew install gcc ninja meson lapack
-    - run: meson setup build_gcc --buildtype release -Dla_backend=netlib
-    - run: ninja -C build_gcc
+      - uses: actions/checkout@v4
+      
+      - name: Set up GCC
+        uses: egor-tensin/setup-gcc@v1
+        with:
+          version: latest
+      - name: Install build dependencies (Meson)
+        run: |
+          sudo apt-get install meson ninja-build gfortran libopenblas-dev libopenblas64-dev
+      - name: Setup (LP64)
+        run: |
+          meson setup ${{ env.BUILD_DIR }} -Dla_backend=openblas --buildtype=debug
+      - name: Compile
+        run: |
+          meson compile -C ${{ env.BUILD_DIR }}
+      - name: Run test
+        run: |
+          export XTB4STDAHOME=$PWD
+          export PATH=$PATH:$XTB4STDAHOME/_build
+          xtb4stda tests/pNA.xyz
+          
+  test-meson-mkl:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        ints_size: ['lp64', 'ilp64']
+        compiler_type: ['gnu', 'intel']
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install oneAPI tools
+        run: |
+          wget -O- https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB | gpg --dearmor | sudo tee /usr/share/keyrings/oneapi-archive-keyring.gpg > /dev/null
+          echo "deb [signed-by=/usr/share/keyrings/oneapi-archive-keyring.gpg] https://apt.repos.intel.com/oneapi all main" | sudo tee /etc/apt/sources.list.d/oneAPI.list
+          sudo apt update
+          sudo apt install intel-oneapi-mkl-devel intel-basekit intel-hpckit intel-oneapi-compiler-fortran
+      - name: Install build dependencies (Meson)
+        run: |
+          sudo apt-get install meson ninja-build
+      - name: Set up GCC
+        if: ${{ matrix.compiler_type == 'gnu' }}
+        uses: egor-tensin/setup-gcc@v1
+        with:
+          version: latest
+      - name: Set up OneAPI environment
+        run: |
+          source /opt/intel/oneapi/setvars.sh
+          printenv >> $GITHUB_ENV
+      - name: Set up gfortran
+        if: ${{ matrix.compiler_type == 'gnu' }}
+        run: |
+          sudo apt-get install gfortran
+          echo "FC=gfortran" >> $GITHUB_ENV
+          echo "CC=gcc" >> $GITHUB_ENV
+      - name: Set up ifx
+        if: ${{ matrix.compiler_type == 'intel' }}
+        run: |
+          echo "FC=ifx" >> $GITHUB_ENV
+      - name: Setup (LP64)
+        if: ${{ matrix.ints_size == 'lp64' }}
+        run: |
+          meson setup ${{ env.BUILD_DIR }} -Dla_backend=mkl --buildtype=debug
+      - name: Setup (ILP64)
+        if: ${{ matrix.ints_size == 'ilp64' }}
+        run: |
+          meson setup ${{ env.BUILD_DIR }} -Dla_backend=mkl -Dinterface=64 --buildtype=debug
+      - name: Compile
+        run: |
+          meson compile -C ${{ env.BUILD_DIR }}
+      - name: Run test
+        run: |
+          export XTB4STDAHOME=$PWD
+          export PATH=$PATH:$XTB4STDAHOME/_build
+          xtb4stda tests/pNA.xyz
+
+  test-ifx-makefile:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    env:
+      CC: icx
+      FC: ifx
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install oneAPI tools
+        run: |
+          wget -O- https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB | gpg --dearmor | sudo tee /usr/share/keyrings/oneapi-archive-keyring.gpg > /dev/null
+          echo "deb [signed-by=/usr/share/keyrings/oneapi-archive-keyring.gpg] https://apt.repos.intel.com/oneapi all main" | sudo tee /etc/apt/sources.list.d/oneAPI.list
+          sudo apt update
+          sudo apt install intel-oneapi-mkl-devel intel-basekit intel-hpckit intel-oneapi-compiler-fortran
+      - name: Set up OneAPI environment
+        run: |
+          source /opt/intel/oneapi/setvars.sh
+          printenv >> $GITHUB_ENV
+      - name: Install other dependencies
+        run: |
+          sudo apt-get install cmake
+      - name: Make (LP64)
+        run: |
+          make
+      - name: Run tests
+        run: |
+          export XTB4STDAHOME=$PWD
+          export PATH=$PATH:$XTB4STDAHOME/exe
+          xtb4stda tests/pNA.xyz
